@@ -11,3 +11,12 @@
 /log/*
 !/log/.keep
 /tmp
+
+# Ignore other files.
+doc/
+*.swp
+*~
+.project
+.DS_Store
+.idea
+config/database.yml
