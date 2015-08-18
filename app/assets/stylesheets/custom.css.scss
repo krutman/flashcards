@@ -1,0 +1,39 @@
+$lightgray: #999;
+$gray: #555;
+
+@mixin box_sizing {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html, body {
+  padding-top: 40px;
+  padding-bottom: 20px;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a:active,
+a:visited {
+  outline: 0 none;
+}
+
+footer {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: $lightgray;
+  margin-top: 25px;
+  
+  a {
+    color: $gray;
+  }
+}
+
+@media(max-width:767px) {
+  
+  .footer p {
+    font-size: 13px;
+  }
+}
