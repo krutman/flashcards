@@ -23,8 +23,10 @@ footer {
   left: 0;
   right: 0;
   bottom: 0;
+  border-top: 1px solid #eaeaea;
   color: $lightgray;
   margin-top: 25px;
+  padding-top: 10px;
   
   a {
     color: $gray;
@@ -35,5 +37,16 @@ footer {
   
   .footer p {
     font-size: 13px;
+  }
+}
+
+.card-item {
+  margin-top: 5px;
+  
+  .card-content {
+    background-color: lightgray;
+    margin: 15px;
+    padding: 25px;
+    border: 1px dashed black;
   }
 }
