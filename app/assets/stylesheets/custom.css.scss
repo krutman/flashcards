@@ -1,3 +1,7 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import 'bootstrap-datetimepicker';
+
 $lightgray: #999;
 $gray: #555;
 
@@ -49,4 +53,31 @@ footer {
     margin: 15px;
     padding: 25px;
   }
+  
+  .edit-delete {
+    margin-left: 15px;
+  }
+}
+
+#error_explanation {
+  color: #f00;
+  ul {
+    list-style: none;
+    margin: 0 0 18px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .form-group;
+  @extend .has-error;
+}
+
+.field_with_errors .message {
+  color: #f00;
+  padding-left: 15px;
+  font-size: 12px;
+}
+
+.pagination {
+  margin-bottom: 5px;
 }

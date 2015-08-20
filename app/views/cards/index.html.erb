@@ -9,3 +9,10 @@
 <div class="row">
   <%= render @cards %>
 </div>
+<div class="row text-center">
+  <div class="col-lg-12">
+    <%= will_paginate @cards %>
+  </div>
+</div>
+
+<%= render 'shared/pagination_disabled_script' %>

@@ -1,0 +1,8 @@
+<%= render 'shared/error_messages', object: f.object %>
+<%= f.input :original_text, placeholder: 'Введите слово...', label: false %>
+<%= f.input :translated_text, placeholder: 'Введите перевод слова...', label: false %>
+<div class="form-group">
+  <%= f.text_field :review_date, class: 'form-control datetimepicker', data: { :date_format => 'DD-MM-YYYY' }, placeholder: "Введите дату пересмотра карточки" %>
+</div>
+
+<%= render 'shared/datetimepicker_script' %>

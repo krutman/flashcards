@@ -4,4 +4,8 @@
     <p><%= card.translated_text %></p>
     <p><%= card.review_date.strftime("%d/%m/%Y") %></p>
   </div>
+  <div class="edit-delete">
+    <%= link_to "Редактировать", edit_card_path(card) %> |
+    <%= link_to "Удалить", card, method: :delete, data: { confirm: "Вы уверены?" } %>
+  </div>
 </div>
