@@ -1,4 +1,5 @@
 class CardsController < ApplicationController
+  before_action :find_card, only: [:edit, :update, :destroy]
     
   def index
     @cards = Card.paginate(page: params[:page], per_page: 8)
@@ -6,7 +7,7 @@ class CardsController < ApplicationController
   
   def new
     @card = Card.new
-    @card.review_date ||= (Date.current + 3).strftime('%d-%m-%Y')
+    @card.review_date = format_date(@card.review_date)
   end
   
   def create
@@ -20,12 +21,10 @@ class CardsController < ApplicationController
   end
   
   def edit
-    @card = Card.find(params[:id])
-    @card.review_date = @card.review_date.strftime('%d-%m-%Y')
+    @card.review_date = format_date(@card.review_date)
   end
   
   def update
-    @card = Card.find(params[:id])
     if @card.update_attributes(card_params)
       flash[:success] = "Карточка обновлена"
       redirect_to cards_path
@@ -35,7 +34,6 @@ class CardsController < ApplicationController
   end
   
   def destroy
-    @card = Card.find(params[:id])
     @card.destroy
     flash[:success] = "Карточка удалена"
     redirect_to cards_path
@@ -45,5 +43,13 @@ class CardsController < ApplicationController
   
     def card_params
       params.require(:card).permit(:original_text, :translated_text, :review_date)
+    end
+    
+    def find_card
+      @card = Card.find(params[:id])
+    end
+    
+    def format_date(date)
+      date.strftime('%d-%m-%Y')
     end
 end

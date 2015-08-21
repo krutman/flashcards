@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
+    <div class="well">
+      <%= simple_form_for card do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        <%= f.input :original_text, placeholder: 'Введите слово...', label: false %>
+        <%= f.input :translated_text, placeholder: 'Введите перевод слова...', label: false %>
+        <div class="form-group">
+          <%= f.text_field :review_date, class: 'form-control datetimepicker', data: { :date_format => 'DD-MM-YYYY' }, placeholder: "Введите дату пересмотра карточки" %>
+        </div>
+        <%= f.submit text, class: "btn btn-large btn-primary" %>
+        <%= link_to 'Отмена', cancel_path, class: "btn btn-default" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function() {
+    $(".datetimepicker").datetimepicker();
+  });
+</script>

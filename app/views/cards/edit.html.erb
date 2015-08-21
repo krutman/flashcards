@@ -1,3 +1,3 @@
 <% provide(:title, 'Редактирование карточки') %>
 
-<%= render 'form_template', text: 'Сохранить изменения' %>
+<%= render partial: 'form', locals: { card: @card, text: 'Сохранить изменения', cancel_path: cards_path} %>
