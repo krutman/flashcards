@@ -7,7 +7,6 @@ class CardsController < ApplicationController
   
   def new
     @card = Card.new
-    @card.review_date = format_date(@card.review_date)
   end
   
   def create
@@ -21,7 +20,6 @@ class CardsController < ApplicationController
   end
   
   def edit
-    @card.review_date = format_date(@card.review_date)
   end
   
   def update
@@ -47,9 +45,5 @@ class CardsController < ApplicationController
     
     def find_card
       @card = Card.find(params[:id])
-    end
-    
-    def format_date(date)
-      date.strftime('%d-%m-%Y')
     end
 end
