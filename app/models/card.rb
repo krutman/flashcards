@@ -1,5 +1,5 @@
 class Card < ActiveRecord::Base
-  after_initialize :set_review_date
+  before_validation :set_review_date, on: :create
   default_scope -> { order('created_at DESC') }
   validates :original_text, presence: true, length: { maximum: 30 }
   validates :translated_text, presence: true, length: { maximum: 30 }
@@ -19,6 +19,6 @@ class Card < ActiveRecord::Base
     end
     
     def set_review_date
-      self.review_date = Date.current + 3 if self.new_record?
+      self.review_date = Date.today + 3.days if self.review_date.blank?
     end
 end
