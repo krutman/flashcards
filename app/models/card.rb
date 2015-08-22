@@ -9,16 +9,16 @@ class Card < ActiveRecord::Base
   private
   
     def words_not_equal
-      if original_text.mb_chars.downcase.to_s == translated_text.mb_chars.downcase.to_s
+      if downcase_word(original_text) == downcase_word(translated_text)
         errors.add(:original_text, "should not be equal to translated text")
       end
     end
     
+    def downcase_word(word)
+      word.mb_chars.downcase.to_s
+    end
+    
     def set_review_date
-      if self.new_record?
-        self.review_date = (Date.current + 3).strftime('%d-%m-%Y')
-      else
-        self.review_date = self.review_date.strftime('%d-%m-%Y')
-      end
+      self.review_date = Date.current + 3 if self.new_record?
     end
 end
