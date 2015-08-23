@@ -15,10 +15,10 @@ class Card < ActiveRecord::Base
     end
     
     def downcase_word(word)
-      word.mb_chars.downcase.to_s
+      word.mb_chars.downcase.to_s if word.present?
     end
     
     def set_review_date
-      self.review_date = Date.today + 3.days if self.review_date.blank?
+      self.review_date ||= Date.today + 3.days
     end
 end
