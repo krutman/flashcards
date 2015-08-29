@@ -1,11 +1,11 @@
 require 'open-uri'
 
-url = 'http://www.languagedaily.com/learn-german/vocabulary/common-german-words/'
+url = "http://www.languagedaily.com/learn-german/vocabulary/common-german-words/"
 html = open(url)
 doc = Nokogiri::HTML(html)
 rows = doc.xpath('//tr[starts-with(@class, "row")]')
 
-details = rows.collect do |row|
+details = rows.map do |row|
   detail = {}
   [
     [:original_text, 'td[2]/text()'],
@@ -17,5 +17,5 @@ details = rows.collect do |row|
 end
 
 details.each do |item|
-  Card.create( original_text: item[:original_text], translated_text: item[:translated_text] )
+  Card.create(original_text: item[:original_text], translated_text: item[:translated_text])
 end
