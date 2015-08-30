@@ -1,8 +1,8 @@
 class Card < ActiveRecord::Base
   before_validation :set_review_date, on: :create
   default_scope -> { order('created_at DESC') }
-  validates :original_text, presence: true, length: { maximum: 30 }
-  validates :translated_text, presence: true, length: { maximum: 30 }
+  validates :original_text, presence: true, length: { maximum: 100 }
+  validates :translated_text, presence: true, length: { maximum: 150 }
   validates :review_date, presence: true
   validate  :words_not_equal
   
