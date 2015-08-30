@@ -5,17 +5,15 @@ html = open(url)
 doc = Nokogiri::HTML(html)
 rows = doc.xpath('//tr[starts-with(@class, "row")]')
 
-details = rows.map do |row|
+rows.map do |row|
   detail = {}
   [
     [:original_text, 'td[2]/text()'],
     [:translated_text, 'td[3]/text()']
   ].each do |name, xpath|
     detail[name] = row.at_xpath(xpath).to_s.strip
+    Card.create(original_text: detail[:original_text], translated_text: detail[:translated_text])
   end
   detail
 end
 
-details.each do |item|
-  Card.create(original_text: item[:original_text], translated_text: item[:translated_text])
-end
