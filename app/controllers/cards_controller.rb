@@ -1,8 +1,8 @@
 class CardsController < ApplicationController
-  before_action :find_card, only: [:edit, :update, :destroy]
+  before_action :find_card, only: [:edit, :update, :destroy, :check_word]
     
   def index
-    @cards = Card.paginate(page: params[:page], per_page: 8)
+    @cards = Card.by_creation_time.paginate(page: params[:page], per_page: 8)
   end
   
   def new
@@ -35,6 +35,21 @@ class CardsController < ApplicationController
     @card.destroy
     flash[:success] = "Карточка удалена"
     redirect_to cards_path
+  end
+  
+  def home
+    @card = Card.random_available_card
+  end
+  
+  def check_word   
+    if @card.correct_word?(params[:original_text])
+      @card.update_review_date
+      flash[:success] = "Правильный ответ"
+      redirect_to root_path
+    else
+      flash.now[:danger] = "Неправильный ответ"
+      render 'home'
+    end
   end
   
   private

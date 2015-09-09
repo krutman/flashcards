@@ -1,10 +1,29 @@
 class Card < ActiveRecord::Base
   before_validation :set_review_date, on: :create
-  default_scope -> { order('created_at DESC') }
   validates :original_text, presence: true, length: { maximum: 100 }
   validates :translated_text, presence: true, length: { maximum: 150 }
   validates :review_date, presence: true
   validate  :words_not_equal
+
+  scope :by_creation_time, -> { order('created_at DESC')  }
+  scope :availables_for_check, -> { where('review_date <= ?', Date.today) }
+  #scope :random_available_card, -> { availables_for_check.order('RANDOM()').first if availables_for_check.present? }
+  
+  def self.random_available_card
+    if availables_for_check.present?
+      availables_for_check.order('RANDOM()').first
+    else
+      nil
+    end
+  end
+  
+  def correct_word?(word)
+    self.original_text == word
+  end
+  
+  def update_review_date
+    self.update_attribute(:review_date, Date.today + 3.days)
+  end
   
   private
   

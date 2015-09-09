@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  root 'static_pages#home'
-  resources :cards
+  #root 'static_pages#home'
+  root 'cards#home'
+  resources :cards do
+    post 'check_word', on: :collection
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
