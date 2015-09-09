@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  #root 'static_pages#home'
   root 'cards#home'
   resources :cards do
     post 'check_word', on: :collection

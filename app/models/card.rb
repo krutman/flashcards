@@ -5,9 +5,9 @@ class Card < ActiveRecord::Base
   validates :review_date, presence: true
   validate  :words_not_equal
 
-  scope :by_creation_time, -> { order('created_at DESC')  }
+  scope :by_creation_time, -> { order('created_at DESC') }
   scope :availables_for_check, -> { where('review_date <= ?', Date.today) }
-  #scope :random_available_card, -> { availables_for_check.order('RANDOM()').first if availables_for_check.present? }
+  # scope :random_available_card, -> { availables_for_check.order('RANDOM()').first if availables_for_check.present? }
   
   def self.random_available_card
     if availables_for_check.present?
