@@ -12,12 +12,10 @@
       <h2>Случайная карточка:</h2>
       <div class="well">
         <h3><%= @card.translated_text %></h3>
-        <%= form_tag reviews_path, :method => :post do |f| %>
-          <%= hidden_field_tag :id, @card.id %>
-          <div class="form-group">
-            <%= text_field_tag :original_text, nil, class: "form-control", placeholder: 'Enter original text...' %>
-          </div>
-          <%= submit_tag "Проверить слово", class: "btn btn-large btn-primary" %>
+        <%= simple_form_for :review, url: reviews_path do |f| %>
+          <%= f.hidden_field :card_id, value: @card.id %>
+          <%= f.input :original_text, placeholder: 'Enter original text...', label: false %>
+          <%= f.submit "Проверить слово", class: "btn btn-large btn-primary" %>
         <% end %>
       </div>
     </div>
