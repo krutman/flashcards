@@ -4,7 +4,7 @@ class ReviewsController < ApplicationController
   def new
     @card = Card.availables_for_check.first
   end
-  
+
   def create
     if @card.check_translation(params[:original_text])
       flash[:success] = "Правильный ответ"
@@ -14,10 +14,4 @@ class ReviewsController < ApplicationController
       render 'new'
     end
   end
-  
-  private
-  
-    def find_card
-      @card = Card.find(params[:id])
-    end
 end

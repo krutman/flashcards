@@ -1,13 +1,13 @@
 class Card < ActiveRecord::Base
   before_validation :set_review_date, on: :create
-  default_scope -> { order(created_at: :desc) }
+  default_scope -> { order('created_at DESC') }
   validates :original_text, presence: true, length: { maximum: 100 }
   validates :translated_text, presence: true, length: { maximum: 150 }
   validates :review_date, presence: true
   validate  :words_not_equal
 
-  scope :availables_for_check, -> { where('review_date <= ?', Date.today).offset(rand(Card.count))}
-  
+  scope :availables_for_check, -> { where('review_date <= ?', Date.today).offset(rand(Card.count)) }
+
   def check_translation(text)
     if downcase_text(original_text) == downcase_text(text)
       update_attributes(review_date: Date.today + 3.days)
