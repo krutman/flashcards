@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
-  root 'cards#home'
-  resources :cards do
-    post 'check_word', on: :collection
-  end
+  root 'reviews#new'
+  resources :cards
+  resources :reviews, only: [:new, :create]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
