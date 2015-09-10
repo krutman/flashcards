@@ -6,11 +6,10 @@ class Card < ActiveRecord::Base
   validates :review_date, presence: true
   validate  :words_not_equal
 
-  # scope :available_for_check, -> { where('review_date <= ?', Date.today).offset(rand(Card.count)) }
-  
-  def self.available_for_check
-    offset_size = Card.where('review_date <= ?', Date.today).size
-    Card.where('review_date <= ?', Date.today).offset(rand(offset_size))
+  scope :for_review, -> { where('review_date <= ?', Date.today) }
+
+  def self.random_for_review
+    for_review.offset(rand(for_review.count))
   end
 
   def check_translation(text)

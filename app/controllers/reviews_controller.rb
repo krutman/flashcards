@@ -2,7 +2,7 @@ class ReviewsController < ApplicationController
   before_action :find_card, only: [:create]
   
   def new
-    @card = Card.available_for_check.first
+    @card = Card.random_for_review.first
   end
 
   def create
@@ -16,11 +16,11 @@ class ReviewsController < ApplicationController
   end
   
   private
-  
+
     def review_params
       params.require(:review).permit(:card_id, :original_text)
     end
-    
+
     def find_card
       @card = Card.find(review_params[:card_id])
     end
