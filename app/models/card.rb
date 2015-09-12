@@ -5,17 +5,29 @@ class Card < ActiveRecord::Base
   validates :translated_text, presence: true, length: { maximum: 150 }
   validates :review_date, presence: true
   validate  :words_not_equal
+
+  scope :for_review, -> { where('review_date <= ?', Date.today) }
+
+  def self.random_for_review
+    for_review.offset(rand(for_review.count))
+  end
+
+  def check_translation(text)
+    if downcase_text(original_text) == downcase_text(text)
+      update_attributes(review_date: Date.today + 3.days)
+    end
+  end
   
   private
   
     def words_not_equal
-      if downcase_word(original_text) == downcase_word(translated_text)
+      if downcase_text(original_text) == downcase_text(translated_text)
         errors.add(:original_text, "should not be equal to translated text")
       end
     end
     
-    def downcase_word(word)
-      word.mb_chars.downcase.to_s if word.present?
+    def downcase_text(text)
+      text.mb_chars.downcase.to_s if text.present?
     end
     
     def set_review_date
