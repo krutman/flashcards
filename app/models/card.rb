@@ -27,7 +27,7 @@ class Card < ActiveRecord::Base
     end
     
     def downcase_text(text)
-      text.mb_chars.downcase.to_s if text.present?
+      text.mb_chars.downcase.to_s.strip if text.present?
     end
     
     def set_review_date
