@@ -4,5 +4,6 @@ FactoryGirl.define do
     original_text "кот"
     translated_text "cat"
     review_date Date.today + 3.days
+    user
   end
 end
