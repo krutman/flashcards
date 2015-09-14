@@ -50,3 +50,8 @@ group :development, :test do
 
   gem 'rspec-rails', '3.3.3'
 end
+
+group :test do
+  gem 'factory_girl_rails'
+  gem 'capybara'
+end
