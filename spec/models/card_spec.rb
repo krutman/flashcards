@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Card do
   
-  let!(:card) { Card.create(original_text: "кот", translated_text: "cat") }
+  let!(:card) { create(:card, original_text: "кот", translated_text: "cat") }
   
   it "has default review_date on create" do
     expect(card.review_date).to eq Date.today + 3.days
