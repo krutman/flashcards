@@ -5,19 +5,21 @@
   </div>
 </div>
 
-<% if @card.present? %>
-  <div class="row text-center">
-    <div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3">
-      <hr>
-      <h2>Случайная карточка:</h2>
-      <div class="well">
-        <h3><%= @card.translated_text %></h3>
-        <%= simple_form_for :review, url: reviews_path do |f| %>
-          <%= f.hidden_field :card_id, value: @card.id %>
-          <%= f.input :original_text, placeholder: 'Enter original text...', label: false %>
-          <%= f.submit "Проверить слово", class: "btn btn-large btn-primary" %>
-        <% end %>
+<% if logged_in? %>
+  <% if @card.present? %>
+    <div class="row text-center">
+      <div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3">
+        <hr>
+        <h2>Случайная карточка:</h2>
+        <div class="well">
+          <h3><%= @card.translated_text %></h3>
+          <%= simple_form_for :review, url: reviews_path do |f| %>
+            <%= f.hidden_field :card_id, value: @card.id %>
+            <%= f.input :original_text, placeholder: 'Enter original text...', label: false %>
+            <%= f.submit "Проверить слово", class: "btn btn-large btn-primary" %>
+          <% end %>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 <% end %>

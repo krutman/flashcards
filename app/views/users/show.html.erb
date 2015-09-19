@@ -1,0 +1,8 @@
+<% provide(:title, @user.email) %>
+
+<div class="row">
+  <div class="col=lg-12 text-center">
+    <p>Email: <%= @user.email %></p>
+    <p><%= link_to "Редактировать профиль", edit_user_path(current_user) %></p>
+  </div>
+</div>

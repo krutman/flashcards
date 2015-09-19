@@ -1,16 +1,17 @@
 class CardsController < ApplicationController
-  before_action :find_card, only: [:edit, :update, :destroy]
+  before_action :require_login
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   def index
-    @cards = Card.paginate(page: params[:page], per_page: 8)
+    @cards = current_user.cards.paginate(page: params[:page], per_page: 8)
   end
   
   def new
-    @card = Card.new
+    @card = current_user.cards.build
   end
   
   def create
-    @card = Card.new(card_params)
+    @card = current_user.cards.build(card_params)
     if @card.save
       flash[:success] = "Карточка создана"
       redirect_to cards_path
@@ -43,7 +44,8 @@ class CardsController < ApplicationController
       params.require(:card).permit(:original_text, :translated_text, :review_date)
     end
 
-    def find_card
-      @card = Card.find(params[:id])
+    def correct_user
+      @card = current_user.cards.find_by(id: params[:id])
+      redirect_to root_path if @card.nil?
     end
 end

@@ -1,8 +1,9 @@
 class ReviewsController < ApplicationController
-  before_action :find_card, only: [:create]
+  before_action :require_login, only: :create
+  before_action :correct_user, only: :create
   
   def new
-    @card = Card.random_for_review.first
+    @card = current_user.cards.random_for_review.first if current_user
   end
 
   def create
@@ -21,7 +22,8 @@ class ReviewsController < ApplicationController
       params.require(:review).permit(:card_id, :original_text)
     end
 
-    def find_card
-      @card = Card.find(review_params[:card_id])
+    def correct_user
+      @card = current_user.cards.find(review_params[:card_id])
+      redirect_to root_path if @card.nil?
     end
 end
