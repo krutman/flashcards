@@ -24,7 +24,7 @@ describe "User" do
   context "edit profile" do
     before do
       login("misha@krutman.ru", "hellorex")
-      visit edit_user_path(user)
+      visit edit_profile_path(user)
       fill_in "user_email", with: "barack@obama.com"
       click_button "Сохранить настройки"
     end
@@ -34,13 +34,13 @@ describe "User" do
   context "cannot edit other user" do
     before do
       login("misha@krutman.ru", "hellorex")
-      visit edit_user_path(other_user)
+      visit edit_profile_path(other_user)
     end
-    it { expect(current_path).to eq root_path }
+    it { expect(current_path).to eq reviews_path }
   end
   
   context "cannot edit profile without login" do
-    before { visit edit_user_path(user) }
+    before { visit edit_profile_path(user) }
     it { expect(page).to have_content "Please login first" }
   end
   
@@ -63,16 +63,16 @@ describe "User" do
   end
   
   context "cannot see profile without login" do
-    before { visit user_path(user.id) }
+    before { visit profile_path(user) }
     it { expect(page).to have_content "Please login first" }
   end
   
   context "cannot see the profile of other user" do
     before do
       login("misha@krutman.ru", "hellorex")
-      visit user_path(other_user.id)
+      visit profile_path(other_user)
     end
-    it { expect(current_path).to eq root_path }
+    it { expect(current_path).to eq reviews_path }
   end
   
   context "redirect to reviews after login" do
