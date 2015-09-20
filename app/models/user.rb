@@ -12,6 +12,6 @@ class User < ActiveRecord::Base
   private
   
     def downcase_email
-      self.email = email.downcase if self.email.present?
+      self.email = email.downcase
     end
 end

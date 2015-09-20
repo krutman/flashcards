@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
   def create
     if @user = login(session_params[:email], session_params[:password])
       flash[:success] = 'Welcome, ' + @user.email
-      redirect_back_or_to root_path
+      redirect_back_or_to reviews_path
     else
       flash.now[:danger] = 'Invalid email/password combination'
       render 'new'

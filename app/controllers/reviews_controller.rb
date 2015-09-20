@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :require_login, only: :create
+  before_action :require_login, only: [:new, :create]
   before_action :correct_user, only: :create
   
   def new
@@ -9,7 +9,7 @@ class ReviewsController < ApplicationController
   def create
     if @card.check_translation(review_params[:original_text])
       flash[:success] = "Правильный ответ"
-      redirect_to root_path
+      redirect_to reviews_path
     else
       flash.now[:danger] = "Неправильный ответ"
       render 'new'
