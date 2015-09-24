@@ -3,12 +3,18 @@ Rails.application.routes.draw do
   resources :cards
   resources :reviews, only: :create
   get 'reviews', to: 'reviews#new'
-  resources :registrations, only: :create
+  resources :registrations, only: :create do
+    member do
+      get :activate
+    end
+  end
   get 'signup', to: 'registrations#new'
-  resources :profile, only: [:show, :edit, :update]
+  resource :profile, only: [:show, :edit, :update]
   resources :sessions, only: :create
   get 'login', to: 'sessions#new'
   post 'logout', to: 'sessions#destroy'
+  resources :reset_passwords, only: [:create, :update, :edit]
+  get 'reset_passwords', to: 'reset_passwords#new'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,5 +1,5 @@
 class RegistrationsController < ApplicationController
-  before_action :restrict_registration
+  before_action :redirect_if_logged_in, only: [:new, :create]
   
   def new
     @user = User.new
@@ -16,13 +16,28 @@ class RegistrationsController < ApplicationController
     end
   end
   
+  def activate
+    if @user = User.load_from_activation_token(params[:id])
+      @user.activate!
+      flash[:success] = 'User was successfully activated.'
+      if logged_in?
+        redirect_to profile_path
+      else
+        redirect_to login_path
+      end
+    else
+      flash[:warning] = 'Cannot activate this user.'
+      redirect_to root_path
+    end
+  end
+  
   private
   
     def user_params
       params.require(:user).permit(:email, :password, :password_confirmation)
     end
     
-    def restrict_registration
+    def redirect_if_logged_in
       if logged_in?
         flash[:warning] = "You are already registered"
         redirect_to root_path

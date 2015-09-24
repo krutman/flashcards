@@ -7,6 +7,8 @@
       <%= simple_form_for :session, url: sessions_path do |f| %>
         <%= f.input :email, required: false %>
         <%= f.input :password, required: false %>
+        <%= f.input :remember_me, as: :boolean %>
+        <p><%= link_to 'Forgot your password?', reset_passwords_path %></p>
         <%= f.submit "Login", class: "btn btn-large btn-primary" %>
       <% end %>
     </div>

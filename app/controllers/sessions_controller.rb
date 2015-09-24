@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if @user = login(session_params[:email], session_params[:password])
+    if @user = login(session_params[:email], session_params[:password], session_params[:remember_me])
       flash[:success] = 'Welcome, ' + @user.email
       redirect_back_or_to reviews_path
     else
@@ -23,6 +23,6 @@ class SessionsController < ApplicationController
   private
   
     def session_params
-      params.require(:session).permit(:email, :password)
+      params.require(:session).permit(:email, :password, :remember_me)
     end
 end

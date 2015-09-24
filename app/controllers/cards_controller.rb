@@ -1,6 +1,6 @@
 class CardsController < ApplicationController
   before_action :require_login
-  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :find_card, only: [:edit, :update, :destroy]
 
   def index
     @cards = current_user.cards.paginate(page: params[:page], per_page: 8)
@@ -43,9 +43,8 @@ class CardsController < ApplicationController
     def card_params
       params.require(:card).permit(:original_text, :translated_text, :review_date)
     end
-
-    def correct_user
-      @card = current_user.cards.find_by(id: params[:id])
-      redirect_to root_path if @card.nil?
+    
+    def find_card
+      @card = current_user.cards.find(params[:id])
     end
 end
