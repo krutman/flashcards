@@ -11,8 +11,8 @@
   <%= render 'shared/header' %>
   <div class="container">
     <% if logged_in? && current_user.activation_state == 'pending' %>
-	    <%= content_tag(:div, "Your account is not activated. Please check your email", class: "alert alert-warning") %>
-	  <% end %>
+      <%= content_tag(:div, "Your account is not activated. Please check your email", class: "alert alert-warning") %>
+    <% end %>
     <% flash.each do |key, value| %>
       <%= content_tag(:div, value, class: "alert alert-#{key}") %>
     <% end %>

@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   before_action :require_login, only: :destroy
+  before_action :redirect_if_logged_in, only: [:new, :create]
   
   def new
     @user = User.new
@@ -24,5 +25,12 @@ class SessionsController < ApplicationController
   
     def session_params
       params.require(:session).permit(:email, :password, :remember_me)
+    end
+    
+    def redirect_if_logged_in
+      if logged_in?
+        flash[:warning] = "You are already logged in"
+        redirect_to root_path
+      end
     end
 end

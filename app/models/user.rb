@@ -1,7 +1,11 @@
 class User < ActiveRecord::Base
-  authenticates_with_sorcery!
+  authenticates_with_sorcery! do
+    config.authentications_class = Authentication
+  end
+  has_many :authentications, dependent: :destroy
+  accepts_nested_attributes_for :authentications
   attr_accessor :current_password
-  before_save :downcase_email
+  before_save :downcase_email, if: -> { !external? }
   before_validation :check_current_password, on: :update, if: :current_password_required?
   before_save :reset_activation_if_email_changed, on: :update
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
@@ -11,6 +15,14 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true, if: :password_required?
 
   has_many :cards, dependent: :destroy
+  
+  def has_linked_facebook?
+    authentications.where(provider: 'facebook').present?
+  end
+  
+  def has_linked_vk?
+    authentications.where(provider: 'vk').present?
+  end
   
   private
   

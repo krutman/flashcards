@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "mail@flashcards.com"
+  default from: "#{Rails.application.secrets.email_from}"
   layout 'mailer'
 end

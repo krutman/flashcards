@@ -20,3 +20,5 @@ doc/
 .DS_Store
 .idea
 config/database.yml
+.env
+

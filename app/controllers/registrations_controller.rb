@@ -8,6 +8,7 @@ class RegistrationsController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      UserMailer.activation_needed_email(@user).deliver_now
       login(user_params[:email], user_params[:password])
       flash[:success] = 'Welcome, ' + @user.email
       redirect_to reviews_path
@@ -19,6 +20,7 @@ class RegistrationsController < ApplicationController
   def activate
     if @user = User.load_from_activation_token(params[:id])
       @user.activate!
+      UserMailer.activation_success_email(@user).deliver_now
       flash[:success] = 'User was successfully activated.'
       if logged_in?
         redirect_to profile_path

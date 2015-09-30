@@ -60,6 +60,11 @@ describe "User" do
   context "login" do
     before { login("misha@krutman.ru", "hellorex") }
     it { expect(page).to have_content("Welcome, misha@krutman.ru") }
+    
+    context "redirect if logged in" do
+      before { visit login_path }
+      it { expect(page).to have_content("You are already logged in") }
+    end
   end
   
   context "edit profile" do

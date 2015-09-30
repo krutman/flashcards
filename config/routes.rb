@@ -15,6 +15,10 @@ Rails.application.routes.draw do
   post 'logout', to: 'sessions#destroy'
   resources :reset_passwords, only: [:create, :update, :edit]
   get 'reset_passwords', to: 'reset_passwords#new'
+  post "oauth/callback", to: 'oauths#callback'
+  get "oauth/callback", to: 'oauths#callback'
+  get "oauth/:provider", to: 'oauths#oauth', :as => :auth_at_provider
+  delete "oauth/:provider", to: "oauths#destroy", :as => :delete_oauth
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
