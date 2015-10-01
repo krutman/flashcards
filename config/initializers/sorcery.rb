@@ -117,8 +117,8 @@ Rails.application.config.sorcery.configure do |config|
   #
   config.facebook.key = ENV["FACEBOOK_KEY"]
   config.facebook.secret = ENV["FACEBOOK_SECRET"]
-  config.facebook.callback_url = "http://localhost:3000/oauth/callback?provider=facebook"
-  config.facebook.user_info_mapping = {:email => "email"}
+  config.facebook.callback_url = "http://#{Rails.application.secrets.domain}/oauth/callback?provider=facebook"
+  config.facebook.user_info_mapping = {email: "email"}
   config.facebook.access_permissions = ["public_profile", "email"]
   config.facebook.user_info_path = "me?fields=id,name,email"
   config.facebook.display = "page"
@@ -136,8 +136,8 @@ Rails.application.config.sorcery.configure do |config|
   #
   config.vk.key = ENV["VK_KEY"]
   config.vk.secret = ENV["VK_SECRET"]
-  config.vk.callback_url = "http://localhost:3000/oauth/callback?provider=vk"
-  config.vk.user_info_mapping = {:email => "email"}
+  config.vk.callback_url = "http://#{Rails.application.secrets.domain}/oauth/callback?provider=vk"
+  config.vk.user_info_mapping = {email: "email"}
   #
   # To use liveid in development mode you have to replace mydomain.com with
   # a valid domain even in development. To use a valid domain in development

@@ -9,7 +9,6 @@ class OauthsController < ApplicationController
     provider = auth_params[:provider]
     begin
       if logged_in?
-        @user = add_provider_to_user(provider)
         if @user = add_provider_to_user(provider)
           flash[:success] = "#{provider.titleize} connected success"
         else
@@ -53,8 +52,11 @@ class OauthsController < ApplicationController
     provider = params[:provider]
     authentication = current_user.authentications.find_by_provider(provider)
     if authentication.present?
-      authentication.destroy
-      flash[:success] = "You have successfully unlinked your #{provider.titleize} account."
+      if authentication.destroy
+        flash[:success] = "You have successfully unlinked your #{provider.titleize} account."
+      else
+        flash[:warning] = "#{provider.titleize} cannot be removed."
+      end
     else
       flash[:warning] = "You do not currently have a linked #{provider.titleize} account."
     end

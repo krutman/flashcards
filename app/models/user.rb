@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   authenticates_with_sorcery! do
     config.authentications_class = Authentication
   end
-  has_many :authentications, dependent: :destroy
+  has_many :authentications, dependent: :delete_all
   accepts_nested_attributes_for :authentications
   attr_accessor :current_password
   before_save :downcase_email, if: -> { !external? }
@@ -31,8 +31,10 @@ class User < ActiveRecord::Base
     end
     
     def check_current_password
-      unless BCrypt::Password.new(self.crypted_password_was) == (self.current_password + self.salt_was)
-        errors.add(:current_password, "is wrong")
+      unless self.crypted_password_was.nil?
+        unless BCrypt::Password.new(self.crypted_password_was) == (self.current_password + self.salt_was)
+          errors.add(:current_password, "is wrong")
+        end
       end
     end
     

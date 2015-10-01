@@ -7,7 +7,7 @@
         <h4>Изменить email:</h4>
         <%= f.input :email, placeholder: 'Введите email...', label: false %>
         <h4>Изменить пароль:</h4>
-        <%= f.input :current_password, placeholder: 'Введите старый пароль...', label: false %>
+        <%= f.input :current_password, placeholder: 'Введите старый пароль...', label: false unless current_user.crypted_password.nil? %>
         <%= f.input :password, placeholder: 'Введите новый пароль...', label: false %>
         <%= f.input :password_confirmation, placeholder: 'Введите подтверждение пароля...', label: false %>
         <%= f.submit 'Сохранить настройки', class: "btn btn-large btn-primary" %>
