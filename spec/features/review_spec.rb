@@ -2,9 +2,10 @@ require 'rails_helper'
 
 describe "Card review" do
   
-  let!(:card) { create(:card, original_text: "кот", translated_text: "cat", review_date: Date.today - 3.days) }
+  let!(:user) { create(:user, email: "misha@krutman.ru", password: "hellorex", password_confirmation: "hellorex") }
+  let!(:card) { create(:card, user: user, original_text: "кот", translated_text: "cat", review_date: Date.today - 3.days) }
   
-  before(:each) { visit root_path }
+  before(:each) { login("misha@krutman.ru", "hellorex") }
   
   it "correct answer for review" do
     fill_in "review_original_text", with: "Кот"

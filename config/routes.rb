@@ -1,7 +1,24 @@
 Rails.application.routes.draw do
-  root 'reviews#new'
+  root 'static_pages#home'
   resources :cards
-  resources :reviews, only: [:new, :create]
+  resources :reviews, only: :create
+  get 'reviews', to: 'reviews#new'
+  resources :registrations, only: :create do
+    member do
+      get :activate
+    end
+  end
+  get 'signup', to: 'registrations#new'
+  resource :profile, only: [:show, :edit, :update]
+  resources :sessions, only: :create
+  get 'login', to: 'sessions#new'
+  post 'logout', to: 'sessions#destroy'
+  resources :reset_passwords, only: [:create, :update, :edit]
+  get 'reset_passwords', to: 'reset_passwords#new'
+  post "oauth/callback", to: 'oauths#callback'
+  get "oauth/callback", to: 'oauths#callback'
+  get "oauth/:provider", to: 'oauths#oauth', :as => :auth_at_provider
+  delete "oauth/:provider", to: "oauths#destroy", :as => :delete_oauth
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

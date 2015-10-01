@@ -1,0 +1,18 @@
+<% provide(:title, 'Редактировать профиль') %>
+
+<div class="row">
+  <div class="col-lg-4 col-lg-offset-4 col-md-8 col-md-offset-2">
+    <div class="well">
+      <%= simple_form_for current_user, url: profile_path do |f| %>
+        <h4>Изменить email:</h4>
+        <%= f.input :email, placeholder: 'Введите email...', label: false %>
+        <h4>Изменить пароль:</h4>
+        <%= f.input :current_password, placeholder: 'Введите старый пароль...', label: false unless current_user.crypted_password.nil? %>
+        <%= f.input :password, placeholder: 'Введите новый пароль...', label: false %>
+        <%= f.input :password_confirmation, placeholder: 'Введите подтверждение пароля...', label: false %>
+        <%= f.submit 'Сохранить настройки', class: "btn btn-large btn-primary" %>
+        <%= link_to 'Отмена', profile_path, class: "btn btn-default" %>
+      <% end %>
+    </div>
+  </div>
+</div>

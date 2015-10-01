@@ -1,0 +1,18 @@
+<% provide(:title, current_user.email) %>
+
+<div class="row">
+  <div class="col=lg-12 text-center">
+    <p>Email: <%= current_user.email %></p>
+    <% if current_user.has_linked_facebook? %>
+      <p><%= link_to 'Unlink your Facebook account', delete_oauth_path('facebook'), method: :delete %></p>
+    <% else %>
+      <p><%= link_to 'Link your Facebook account', auth_at_provider_path(:provider => :facebook) %></p>
+    <% end %>
+    <% if current_user.has_linked_vk? %>
+      <p><%= link_to 'Unlink your VK account', delete_oauth_path('vk'), method: :delete %></p>
+    <% else %>
+      <p><%= link_to 'Link your VK account', auth_at_provider_path(:provider => :vk) %></p>
+    <% end %>
+    <p><%= link_to "Редактировать профиль", edit_profile_path %></p>
+  </div>
+</div>
