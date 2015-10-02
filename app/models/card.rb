@@ -7,6 +7,9 @@ class Card < ActiveRecord::Base
   validates :review_date, presence: true
   validates :user_id, presence: true
   validate  :words_not_equal
+  mount_uploader :cover, CardCoverUploader
+  validates :cover, presence: true
+  validate :cover_size
 
   scope :for_review, -> { where('review_date <= ?', Date.today) }
 
@@ -34,5 +37,11 @@ class Card < ActiveRecord::Base
     
     def set_review_date
       self.review_date ||= Date.today + 3.days
+    end
+    
+    def cover_size
+      if cover.size > 1.megabytes
+        errors.add(:cover, "should be less than 1MB")
+      end
     end
 end

@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.3'
+gem 'rails', '4.2.4'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
@@ -32,6 +32,9 @@ gem 'momentjs-rails', '2.10.3'
 gem 'bootstrap3-datetimepicker-rails', '4.0.0'
 gem 'simple_form'
 gem 'sorcery'
+gem 'mini_magick'
+gem 'carrierwave'
+gem 'fog', '1.34.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
