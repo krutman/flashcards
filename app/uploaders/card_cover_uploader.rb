@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class CardCoverUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   
