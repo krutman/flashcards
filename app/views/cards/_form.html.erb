@@ -3,6 +3,11 @@
     <div class="well">
       <%= simple_form_for card do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
+        <% if card.cover? && !(card.cover.to_s.include? "tmp") %>
+          <%= image_tag card.cover.url, class:"img-responsive center-block cover" %>
+          Card cover uploaded. You can change the new cover:
+        <% end %>
+        <%= f.input :cover, label: false %>
         <%= f.input :original_text, placeholder: 'Введите слово...', label: false %>
         <%= f.input :translated_text, placeholder: 'Введите перевод слова...', label: false %>
         <div class="form-group">

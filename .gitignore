@@ -21,4 +21,4 @@ doc/
 .idea
 config/database.yml
 .env
-
+publuc/uploads/

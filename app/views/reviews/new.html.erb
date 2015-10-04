@@ -6,6 +6,7 @@
       <h2>Случайная карточка:</h2>
       <div class="well">
         <h3><%= @card.translated_text %></h3>
+        <%= image_tag(@card.cover.url, class: "img-responsive center-block cover") %>
         <%= simple_form_for :review, url: reviews_path do |f| %>
           <%= f.hidden_field :card_id, value: @card.id %>
           <%= f.input :original_text, placeholder: 'Enter original text...', label: false %>
