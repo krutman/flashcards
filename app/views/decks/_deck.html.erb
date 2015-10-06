@@ -1,0 +1,12 @@
+<div class="col-md-8 col-md-offset-2 item text-center">
+  <div class="content">
+    <h1><%= link_to deck.title, deck_cards_path(deck.id) %></h1>
+    <% if deck.current %>
+      <p>Текущая колода</p>
+    <% end %>
+  </div>
+  <div class="edit-delete">
+    <%= link_to "Редактировать", edit_deck_path(deck) %> |
+    <%= link_to "Удалить", deck, method: :delete, data: { confirm: "Вы уверены?" } %>
+  </div>
+</div>

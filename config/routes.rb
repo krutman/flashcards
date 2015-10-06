@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root 'static_pages#home'
-  resources :cards
+  resources :decks, shallow: true do
+    resources :cards
+  end
   resources :reviews, only: :create
   get 'reviews', to: 'reviews#new'
   resources :registrations, only: :create do

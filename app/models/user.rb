@@ -14,7 +14,8 @@ class User < ActiveRecord::Base
   validates :password, confirmation: true
   validates :password_confirmation, presence: true, if: :password_required?
 
-  has_many :cards, dependent: :destroy
+  has_many :decks, dependent: :destroy
+  has_many :cards, through: :decks
   
   def has_linked_facebook?
     authentications.where(provider: 'facebook').present?
@@ -22,6 +23,10 @@ class User < ActiveRecord::Base
   
   def has_linked_vk?
     authentications.where(provider: 'vk').present?
+  end
+  
+  def current_deck
+    decks.where('current = ?', true).first
   end
   
   private

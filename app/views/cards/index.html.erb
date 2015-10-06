@@ -1,8 +1,9 @@
-<% provide(:title, "Все карточки") %>
+<% provide(:title, @deck.title) %>
 
 <div class="row">
   <div class="col-lg-12 text-center">
-    <h1>Все карточки</h1>
+    <h1><%= @deck.title %></h1>
+    <%= link_to 'Добавить карточку в колоду', new_deck_card_path(@deck), class: "btn btn-large btn-primary" %>
     <hr>
   </div>
 </div>
