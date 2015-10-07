@@ -1,0 +1,17 @@
+<% provide(:title, "Все колоды") %>
+
+<div class="row">
+  <div class="col-lg-12 text-center">
+    <h1>Все колоды</h1>
+    <%= link_to 'Новая колода', new_deck_path, class: "btn btn-large btn-primary" %>
+    <hr>
+  </div>
+</div>
+<div class="row">
+  <%= render @decks %>
+</div>
+<div class="row text-center">
+  <div class="col-lg-12">
+    <%= will_paginate @decks %>
+  </div>
+</div>

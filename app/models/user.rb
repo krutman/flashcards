@@ -14,7 +14,9 @@ class User < ActiveRecord::Base
   validates :password, confirmation: true
   validates :password_confirmation, presence: true, if: :password_required?
 
-  has_many :cards, dependent: :destroy
+  has_many :decks, dependent: :destroy
+  has_many :cards, through: :decks
+  belongs_to :current_deck, class_name: "Deck"
   
   def has_linked_facebook?
     authentications.where(provider: 'facebook').present?

@@ -143,22 +143,22 @@ describe "User" do
     it { expect(page).to have_content "Please login first" }
   end
   
-  context "can see own cards" do
-    let!(:card) { create(:card, user: user, original_text: "собака", translated_text: "dog") }
+  context "can see own decks" do
+    let!(:deck) { create(:deck, user: user, title: "первая") }
     before do
       login("misha@krutman.ru", "hellorex")
-      visit cards_path
+      visit decks_path
     end
-    it { expect(page).to have_content "dog" }
+    it { expect(page).to have_content "первая" }
   end
   
-  context "cannot see the card of other user" do
-    let!(:card) { create(:card, user: other_user, original_text: "кот", translated_text: "cat") }
+  context "cannot see the deck of other user" do
+    let!(:deck) { create(:deck, user: other_user, title: "вторая") }
     before do
       login("misha@krutman.ru", "hellorex")
-      visit cards_path
+      visit decks_path
     end
-    it { expect(page).not_to have_content "cat" }
+    it { expect(page).not_to have_content "вторая" }
   end
   
   context "cannot see profile without login" do

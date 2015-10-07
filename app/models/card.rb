@@ -1,11 +1,11 @@
 class Card < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :deck
   before_validation :set_review_date, on: :create
   default_scope -> { order('created_at DESC') }
   validates :original_text, presence: true, length: { maximum: 100 }
   validates :translated_text, presence: true, length: { maximum: 150 }
   validates :review_date, presence: true
-  validates :user_id, presence: true
+  validates :deck_id, presence: true
   validate  :words_not_equal
   mount_uploader :cover, CardCoverUploader
   validates :cover, presence: true
