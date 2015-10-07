@@ -3,7 +3,7 @@ require 'rails_helper'
 describe "Card review" do
   
   let!(:user) { create(:user, email: "misha@krutman.ru", password: "hellorex", password_confirmation: "hellorex") }
-  let!(:deck) { create(:deck, user: user, title: "first", current: "false") }
+  let!(:deck) { create(:deck, user: user, title: "first") }
   let!(:card) { create(:card, deck: deck, original_text: "кот", translated_text: "cat", review_date: Date.today - 3.days) }
   
   before(:each) { login("misha@krutman.ru", "hellorex") }
@@ -21,8 +21,13 @@ describe "Card review" do
   end
   
   context "with current deck" do
-    let!(:current_deck) { create(:deck, user: user, title: "second", current: "true") }
-    before { visit root_path }
+    let!(:current_deck) { create(:deck, user: user, title: "second") }
+    before do
+      visit edit_deck_path(current_deck)
+      check "deck_current"
+      click_button "Сохранить изменения"
+      visit root_path
+    end
     it { expect(page).to have_content "у вас нет доступных карточек для тренировки" }
   end
 end

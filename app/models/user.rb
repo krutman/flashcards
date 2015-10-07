@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
 
   has_many :decks, dependent: :destroy
   has_many :cards, through: :decks
+  belongs_to :current_deck, class_name: "Deck"
   
   def has_linked_facebook?
     authentications.where(provider: 'facebook').present?
@@ -23,10 +24,6 @@ class User < ActiveRecord::Base
   
   def has_linked_vk?
     authentications.where(provider: 'vk').present?
-  end
-  
-  def current_deck
-    decks.where('current = ?', true).first
   end
   
   private

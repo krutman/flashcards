@@ -1,7 +1,7 @@
 <div class="col-md-8 col-md-offset-2 item text-center">
   <div class="content">
     <h1><%= link_to deck.title, deck_cards_path(deck.id) %></h1>
-    <% if deck.current %>
+    <% if current_user.current_deck == deck %>
       <p>Текущая колода</p>
     <% end %>
   </div>
